@@ -1,4 +1,5 @@
 package View;
+
 import java.util.Scanner;
 import Controller.ClinicController;
 import Model.Clinic;
@@ -14,7 +15,7 @@ public class ClinicView {
 
     public ClinicView() {
         DataSetClinic.data.add(new Clinic(1, "Amigo do Bicho"));
-        DataSetClinic.data.add(new Clinic(2,"Pet Lovers"));
+        DataSetClinic.data.add(new Clinic(2, "Pet Lovers"));
         this.InitClinicView();
     }
 
@@ -40,7 +41,7 @@ public class ClinicView {
             System.out.println("4- Importar Clínicas");
             System.out.println("0- Sair");
 
-            op = Integer.parseInt( sc.nextLine() );
+            op = Integer.parseInt(sc.nextLine());
 
             switch (op) {
                 case 1:
@@ -82,65 +83,68 @@ public class ClinicView {
                 op = 0;
             }
         } while (op == 0);
-        
+
     }
-    
+
     private void InsertClinic() {
         System.out.println("********************");
         System.out.println("Inserir Nova Clínica");
         System.out.println("********************");
-        
+
         Clinic newClinic = new Clinic();
-        newClinic.setId( this.clinicController.getNextId());
+        newClinic.setId(this.clinicController.getNextId());
         System.out.println("Nome:");
         String name = sc.nextLine();
         newClinic.setName(name);
         this.clinicController.insertClinic(newClinic);
     }
-    
-    private void ShowMenuClinic(){
-        
+
+    private void ShowMenuClinic() {
+
         int opcao = 0;
-        do{
+        do {
             System.out.println("************");
             System.out.println("MENU CLÍNICA");
             System.out.println("************");
-            System.out.println("Você está em CLÍNICA: " +
-                    DataSetClinic.selectedClinic.getId() + "-" + 
-                    DataSetClinic.selectedClinic.getName()
+            System.out.println("Você está em CLÍNICA: "
+                    + DataSetClinic.selectedClinic.getId() + "-"
+                    + DataSetClinic.selectedClinic.getName()
             );
             System.out.println("");
-            
+
             System.out.println("1- Veterinário");
             System.out.println("2- Animal");
             System.out.println("3- Atendimento");
             System.out.println("0- Sair");
             opcao = sc.nextInt();
-            
-            switch(opcao){
+
+            switch (opcao) {
                 case 1:
                     // refatorar acesso ao metodo getclinicindex
-                   //VetView vetview = new VetView(
-                   //this.clinicController.getClinicIndex())
-                   
+                    VetView vetview = new VetView(
+                    this.clinicController.getClinicIndex(
+                            DataSetClinic.selectedClinic.getId()
+                        )
+                    );
                     break;
                 case 2:
-                    //chamar view do Animal
+                    AnimalView animalView = new AnimalView();
                     break;
+
                 case 3:
                     //chamar view do Atendimento
                     break;
                 case 0:
                     System.out.println("Saindo da Clínica.....");
                     break;
-                default :
+                default:
                     System.out.println("Opção Inválida!");
                     opcao = 0;
-                    break;                  
-                    
+                    break;
+
             }
-        }while( opcao!= 0);
-        
+        } while (opcao != 0);
+
     }
 
 }
